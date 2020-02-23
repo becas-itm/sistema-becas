@@ -1,5 +1,74 @@
+import enum
 import uuid
 import datetime
+
+from .events import ScholarshipApproved
+from .errors import IncompleteError, StateError, ExpiredError
+
+
+class Scholarship:
+    def __init__(
+        self,
+        id,
+        name,
+        description=None,
+        state=None,
+        deadline=None,
+    ):
+        self.id = id
+        self.name = name
+        self.description = description
+        self.state = state
+        self.deadline = deadline
+
+    def approve(self):
+        self._check_for_approval()
+        self.state = State.PUBLISHED
+        return ScholarshipApproved.fire(self.id)
+
+    def _check_for_approval(self):
+        if not self.is_complete:
+            raise IncompleteError(self.id)
+
+        if not self.is_pending:
+            raise StateError(self.id)
+
+        if self.has_passed:
+            raise ExpiredError(self.id)
+
+    @property
+    def is_complete(self):
+        fields = [self.description]
+        for field in fields:
+            if field is None:
+                return False
+
+        return True
+
+    @property
+    def is_pending(self):
+        return self.state == State.PENDING
+
+    @property
+    def has_passed(self):
+        return self.deadline and self.deadline.has_passed()
+
+    @classmethod
+    def from_document(cls, document):
+        return Scholarship(
+            Id.from_string(document.id),
+            name=Name(document.name),
+            description=Description(document.description) if 'description' in document else None,
+            state=State(document.state),
+            deadline=Date(document.deadline.date()) if 'deadline' in document else None,
+        )
+
+
+@enum.unique
+class State(enum.Enum):
+    PENDING = 'PENDING'
+
+    PUBLISHED = 'PUBLISHED'
 
 
 class Id:
