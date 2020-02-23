@@ -5,11 +5,12 @@ from .scholarship import (
     State,
     Description,
     Scholarship,
+    DenialReason,
 )
 
 from .errors import ScholarshipError, IncompleteError, StateError, ExpiredError
 
-from .events import ScholarshipApproved
+from .events import ScholarshipApproved, ScholarshipDenied
 
 
 __all__ = [
@@ -19,9 +20,11 @@ __all__ = [
     'State',
     'Description',
     'Scholarship',
+    'DenialReason',
     'ScholarshipError',
     'IncompleteError',
     'StateError',
     'ExpiredError',
     'ScholarshipApproved',
+    'ScholarshipDenied',
 ]

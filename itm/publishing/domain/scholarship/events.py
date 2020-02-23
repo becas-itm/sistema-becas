@@ -17,3 +17,14 @@ class ScholarshipApproved:
     @property
     def timestamp(self):
         return self._timestamp
+
+
+class ScholarshipDenied:
+    def __init__(self, scholarship_id, reason, timestamp):
+        self.scholarship_id = scholarship_id
+        self.reason = reason
+        self.timestamp = timestamp
+
+    @classmethod
+    def fire(cls, scholarship_id, reason):
+        return cls(scholarship_id, reason, datetime.utcnow())

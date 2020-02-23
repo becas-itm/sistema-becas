@@ -2,7 +2,7 @@ import enum
 import uuid
 import datetime
 
-from .events import ScholarshipApproved
+from .events import ScholarshipApproved, ScholarshipDenied
 from .errors import IncompleteError, StateError, ExpiredError
 
 
@@ -53,6 +53,13 @@ class Scholarship:
     def has_passed(self):
         return self.deadline and self.deadline.has_passed()
 
+    def deny(self, reason):
+        if not self.is_pending:
+            raise StateError(self.id)
+
+        self.state = State.DENIED
+        return ScholarshipDenied.fire(self.id, DenialReason(reason))
+
     @classmethod
     def from_document(cls, document):
         return Scholarship(
@@ -69,6 +76,8 @@ class State(enum.Enum):
     PENDING = 'PENDING'
 
     PUBLISHED = 'PUBLISHED'
+
+    DENIED = 'DENIED'
 
 
 class Id:
@@ -143,3 +152,7 @@ class Date:
         date = datetime.datetime.fromisoformat(string).date()
 
         return cls(date)
+
+
+class DenialReason(StringValueObject):
+    MAX_CHARACTERS = 120

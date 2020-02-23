@@ -7,3 +7,7 @@ def test_pending_value():
 
 def test_published_value():
     assert State.PUBLISHED.value == 'PUBLISHED'
+
+
+def test_denied_value():
+    assert State.DENIED.value == 'DENIED'

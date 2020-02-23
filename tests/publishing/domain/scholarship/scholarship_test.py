@@ -11,6 +11,7 @@ from itm.publishing.domain.scholarship import (
     StateError,
     ExpiredError,
     ScholarshipApproved,
+    ScholarshipDenied,
 )
 
 
@@ -57,3 +58,22 @@ class TestApproveScholarship:
         scholarship = get_scholarship()
         event = scholarship.approve()
         assert isinstance(event, ScholarshipApproved)
+
+
+class TestDenyScholarship:
+    @pytest.mark.parametrize('state', [State.PUBLISHED])
+    def test_non_pending_scholarship_should_throw(self, state):
+        scholarship = get_scholarship(state=state)
+        with pytest.raises(StateError):
+            scholarship.deny('foo')
+
+    def test_denial_should_only_happen_one_time(self):
+        scholarship = get_scholarship()
+        scholarship.deny('foo')
+        with pytest.raises(StateError):
+            scholarship.deny('bar')
+
+    def test_denial_should_fire_event(self):
+        scholarship = get_scholarship()
+        event = scholarship.deny('foo')
+        assert isinstance(event, ScholarshipDenied)
