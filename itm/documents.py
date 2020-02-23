@@ -31,3 +31,8 @@ class Scholarship(dsl.Document):
             'reason': dsl.Text(required=True),
         },
     )
+
+    def to_dict(self):
+        doc = super().to_dict()
+        doc.update({'id': self.id})
+        return doc
