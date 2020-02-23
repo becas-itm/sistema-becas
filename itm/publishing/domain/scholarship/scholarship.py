@@ -1,4 +1,5 @@
 import uuid
+import datetime
 
 
 class Id:
@@ -51,3 +52,25 @@ class Name(StringValueObject):
 
 class Description(StringValueObject):
     MAX_CHARACTERS = 500
+
+
+class Date:
+    def __init__(self, date: datetime.date):
+        self._date = date
+
+    @property
+    def value(self):
+        return self._date
+
+    def has_passed(self, current_date=datetime.date.today):
+        return (current_date() - self._date).days > 0
+
+    @classmethod
+    def from_string(cls, string: str):
+        if not isinstance(string, str):
+            raise TypeError(f'{string!r} is not a valid {cls.__name__}')
+
+        # Parse string with datetime in order to support partial ISO format
+        date = datetime.datetime.fromisoformat(string).date()
+
+        return cls(date)
