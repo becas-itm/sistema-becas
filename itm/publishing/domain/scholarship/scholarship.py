@@ -21,3 +21,27 @@ class Id:
     @classmethod
     def from_string(cls, string: str):
         return cls(uuid.UUID(string, version=cls.UUID_VERSION))
+
+
+class Name:
+    MAX_CHARACTERS = 250
+
+    def __init__(self, value: str):
+        self._set_value(value)
+
+    @property
+    def value(self):
+        return self._value
+
+    def _set_value(self, value: str):
+        if not isinstance(value, str):
+            raise TypeError(f'{value!r} is not a valid {Name.__name__}')
+
+        if value == '':
+            raise ValueError(f'{Name.__name__} must not be empty')
+
+        if len(value) > self.MAX_CHARACTERS:
+            raise ValueError(f'{Name.__name__} must contain up to '
+                             f'{self.MAX_CHARACTERS} characters')
+
+        self._value = value
