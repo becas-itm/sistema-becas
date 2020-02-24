@@ -1,0 +1,11 @@
+.AppLogo {
+  display: inline-flex;
+  align-items: center;
+}
+
+.AppLogo > span {
+  margin-left: .75rem;
+  padding: .5rem 0 .5rem .75rem;
+  color: var(--text-emphasis-high);
+  border-left: 1px solid var(--line-separator);
+}

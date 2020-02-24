@@ -1,11 +1,13 @@
 import React from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { AppLogo } from 'ui/components';
 import './App.css';
 
 function HomePage() {
   return (
     <div className="App">
       <header className="App-header">
+        <AppLogo className="App-logo" />
         <p>Becas y convocatorias</p>
         <a
           className="App-link"
