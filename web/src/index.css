@@ -8,6 +8,8 @@
   --font-sans: 'Open Sans', sans-serif;
   --weight-regular: 400;
   --weight-medium: 600;
+
+  --gray-100: #f5f5f5;
 }
 
 body {
