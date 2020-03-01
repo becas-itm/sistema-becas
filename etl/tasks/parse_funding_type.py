@@ -4,6 +4,7 @@ from etl.common.funding_type import FundingType
 partial_words = set(('parcial', 'partial'))
 complete_words = set(('completa', 'complete'))
 
+
 def parse_funding_type(item: dict):
     if 'fundingType' not in item:
         return item
@@ -16,6 +17,7 @@ def parse_funding_type(item: dict):
         item['fundingType'] = FundingType.COMPLETE.value
 
     return item
+
 
 def clean_string(string: str):
     return string.strip().lower()

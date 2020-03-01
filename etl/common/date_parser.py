@@ -3,6 +3,7 @@ from datetime import datetime
 
 ISO_FORMAT = '%Y-%m-%d'
 
+
 class DateParser:
     def __init__(self, dateformat):
         self.dateformat = dateformat
