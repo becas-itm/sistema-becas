@@ -1,8 +1,7 @@
-from scraper.spiders import SpiderName
 from itm.documents import RawScholarship
 
 
-def read_raw_scholarhips(spider: str):
+def read_raw_scholarhips(spider):
     def run_task():
         search = RawScholarship.search() \
             .filter('term', **{'spider.name': spider.value})
