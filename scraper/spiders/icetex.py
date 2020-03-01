@@ -10,7 +10,9 @@ class Icetex(scrapy.Spider):
 
     allowed_domains = ['icetex.gov.co']
 
-    start_urls = ['https://www.icetex.gov.co/SIORI_WEB/Convocatorias.aspx?aplicacion=1&vigente=true']
+    start_urls = [
+        'https://www.icetex.gov.co/SIORI_WEB/Convocatorias.aspx?aplicacion=1&vigente=true',
+    ]
 
     def parse(self, response):
         return self.visit_menu(response)
@@ -23,9 +25,9 @@ class Icetex(scrapy.Spider):
                 'RBLOpcionBuscar': 'Todas',
                 '__EVENTTARGET': 'RBLOpcionBuscar$2',
                 '__EVENTARGUMENT': '',
-                '__VIEWSTATE': response.css('input#__VIEWSTATE::attr(value)').extract_first()
+                '__VIEWSTATE': response.css('input#__VIEWSTATE::attr(value)').extract_first(),
             },
-            callback=self.visit_first_page
+            callback=self.visit_first_page,
         )
 
     def visit_first_page(self, response):
@@ -33,16 +35,17 @@ class Icetex(scrapy.Spider):
         yield from self.follow_pagination(response)
 
     def visit_preview_page(self, response):
-        details_page_link = response.css('table#GVConvocatorias > tr > td > a::attr(href)').re(",'(.+)'")
+        details_page_link = response.css(
+            'table#GVConvocatorias > tr > td > a::attr(href)').re(",'(.+)'")
         for link in details_page_link:
             yield scrapy.FormRequest.from_response(
                 response,
                 formid='form1',
                 formdata={
                     '__EVENTTARGET': 'GVConvocatorias',
-                    '__EVENTARGUMENT': link
+                    '__EVENTARGUMENT': link,
                 },
-                callback=self.parse_item
+                callback=self.parse_item,
             )
 
     def follow_pagination(self, response):
@@ -53,15 +56,19 @@ class Icetex(scrapy.Spider):
                 formid='form1',
                 formdata={
                     '__EVENTTARGET': 'GVConvocatorias',
-                    '__EVENTARGUMENT': link
+                    '__EVENTARGUMENT': link,
                 },
-                callback=self.visit_preview_page
+                callback=self.visit_preview_page,
             )
 
     def parse_item(self, response):
-        return ItemBuilder.from_spider(self) \
-            .add_name(response.css('#LblInfoPrograma::text').get()) \
-            .add_description(response.css('#LblInfoPerfilAspirante::text').get()) \
-            .add_deadline(response.css('#LblInfoFechaRecepcion::text').get()) \
-            .add_funding_type(response.css('#GVNumeroBecas .celdaOscura2 td:nth-child(3)::text').get()) \
-            .build()
+        item = ItemBuilder.from_spider(self)
+
+        item.add_name(response.css('#LblInfoPrograma::text').get())
+        item.add_description(response.css('#LblInfoPerfilAspirante::text').get())
+        item.add_deadline(response.css('#LblInfoFechaRecepcion::text').get())
+
+        item.add_funding_type(response.css(
+            '#GVNumeroBecas .celdaOscura2 td:nth-child(3)::text').get())
+
+        return item.build()

@@ -23,7 +23,8 @@ class Daad(scrapy.Spider):
         yield self.visit_next_page(response)
 
     def visit_next_page(self, response):
-        next_page = response.css('#main > nav > ul.pagination.hidden-md.hidden-lg > li:nth-child(2):not(.disabled) > a::attr(href)').get()
+        next_page = '#main > nav > ul.pagination.hidden-md.hidden-lg > li:nth-child(2):not(.disabled) > a::attr(href)'  # noqa: E501
+        next_page = response.css(next_page).get()
         if next_page:
             return response.follow(next_page, callback=self.visit_current_page)
 
