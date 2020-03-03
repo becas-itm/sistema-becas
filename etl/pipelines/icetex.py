@@ -4,6 +4,7 @@ from scraper.spiders import SpiderName
 from etl.common.date_parser import ISO_FORMAT
 from itm.documents import connect_db
 
+from etl.tasks.icetex import calculate_academic_level
 from etl.tasks import read_raw_scholarhips, \
     add_timestamps, \
     add_pending_state, \
@@ -21,6 +22,7 @@ def get_graph(**options):
                     add_timestamps,
                     add_pending_state,
                     limit_description,
+                    calculate_academic_level,
                     add_entity_full_name,
                     parse_funding_type,
                     save_scholarship)
