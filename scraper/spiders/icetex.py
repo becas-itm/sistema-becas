@@ -67,7 +67,7 @@ class Icetex(scrapy.Spider):
         item.add_name(response.css('#LblInfoPrograma::text').get())
         item.add_description(response.css('#LblInfoPerfilAspirante::text').get())
         item.add_deadline(response.css('#LblInfoFechaRecepcion::text').get())
-
+        item.add_country(response.css('#LblInfoPais::text').get())
         item.add_funding_type(response.css(
             '#GVNumeroBecas .celdaOscura2 td:nth-child(3)::text').get())
 

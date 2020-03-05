@@ -27,5 +27,9 @@ class ItemBuilder:
         self._item['fundingType'] = funding
         return self
 
+    def add_country(self, country):
+        self._item['country'] = country
+        return self
+
     def build(self):
         return self._item
