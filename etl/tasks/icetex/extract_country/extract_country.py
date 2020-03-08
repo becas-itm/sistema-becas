@@ -1,3 +1,4 @@
+import os
 import json
 
 
@@ -25,10 +26,13 @@ def get_country(name: str):
 
 
 countries = None
+
+
 def load_countries():
     global countries
     if countries is None:
-        with open('countries.json', 'r') as file:
+        filename = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'countries.json')
+        with open(filename, 'r') as file:
             countries = json.loads(file.read())
 
     return countries
