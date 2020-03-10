@@ -1,5 +1,6 @@
 import scrapy
 
+from etl.common import Language
 from scraper.item_builder import ItemBuilder
 
 from . import SpiderName
@@ -30,6 +31,7 @@ class Daad(scrapy.Spider):
 
     def parse_item(self, response):
         return ItemBuilder.from_spider(self) \
+            .add_language(Language.ENGLISH) \
             .add_name(response.css('.scholarship-detail-header > h2::text').get()) \
             .add_description(response.css('#overview > div::text').get()) \
             .build()

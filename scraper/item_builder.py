@@ -31,5 +31,9 @@ class ItemBuilder:
         self._item['country'] = country
         return self
 
+    def add_language(self, language):
+        self._item['language'] = language.value
+        return self
+
     def build(self):
         return self._item

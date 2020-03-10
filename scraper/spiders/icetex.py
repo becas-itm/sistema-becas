@@ -1,5 +1,6 @@
 import scrapy
 
+from etl.common import Language
 from scraper.item_builder import ItemBuilder
 
 from . import SpiderName
@@ -64,6 +65,7 @@ class Icetex(scrapy.Spider):
     def parse_item(self, response):
         item = ItemBuilder.from_spider(self)
 
+        item.add_language(Language.SPANISH)
         item.add_name(response.css('#LblInfoPrograma::text').get())
         item.add_description(response.css('#LblInfoPerfilAspirante::text').get())
         item.add_deadline(response.css('#LblInfoFechaRecepcion::text').get())
