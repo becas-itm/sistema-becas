@@ -67,6 +67,8 @@ class Icetex(scrapy.Spider):
 
         item.add_language(Language.SPANISH)
         item.add_name(response.css('#LblInfoPrograma::text').get())
+        item.add_original_id(response.css('#LblInfoConvocatoria::text').get())
+        item.add_url(response.request.url)
         item.add_description(response.css('#LblInfoPerfilAspirante::text').get())
         item.add_deadline(response.css('#LblInfoFechaRecepcion::text').get())
         item.add_country(response.css('#LblInfoPais::text').get())

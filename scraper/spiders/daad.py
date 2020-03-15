@@ -33,5 +33,6 @@ class Daad(scrapy.Spider):
         return ItemBuilder.from_spider(self) \
             .add_language(Language.ENGLISH) \
             .add_name(response.css('.scholarship-detail-header > h2::text').get()) \
+            .add_url(response.request.url) \
             .add_description(response.css('#overview > div::text').get()) \
             .build()
