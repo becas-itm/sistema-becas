@@ -13,7 +13,8 @@ from etl.tasks import read_raw_scholarhips, \
     limit_description, \
     parse_deadline, \
     save_scholarship, \
-    parse_funding_type
+    parse_funding_type, \
+    capitalize_name
 
 
 def get_graph(**options):
@@ -22,6 +23,7 @@ def get_graph(**options):
                     parse_deadline(ISO_FORMAT),
                     add_timestamps,
                     add_pending_state,
+                    capitalize_name,
                     limit_description,
                     calculate_academic_level,
                     extract_country,

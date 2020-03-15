@@ -14,6 +14,8 @@ from .save_scholarship import save_scholarship
 
 from .parse_funding_type import parse_funding_type
 
+from .capitalize_name import capitalize_name
+
 
 __all__ = [
     'limit_description',
@@ -24,4 +26,5 @@ __all__ = [
     'read_raw_scholarhips',
     'save_scholarship',
     'parse_funding_type',
+    'capitalize_name',
 ]
