@@ -8,7 +8,9 @@ from etl.tasks import read_raw_scholarhips, \
     add_pending_state, \
     add_entity_full_name, \
     limit_description, \
-    save_scholarship
+    save_scholarship, \
+    capitalize_name, \
+    calc_fill_status
 
 
 def get_graph(**options):
@@ -16,8 +18,10 @@ def get_graph(**options):
     graph.add_chain(read_raw_scholarhips(SpiderName.DAAD),
                     add_timestamps,
                     add_pending_state,
+                    capitalize_name,
                     limit_description,
                     add_entity_full_name,
+                    calc_fill_status,
                     save_scholarship)
     return graph
 

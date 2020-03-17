@@ -16,6 +16,8 @@ from .parse_funding_type import parse_funding_type
 
 from .capitalize_name import capitalize_name
 
+from .calc_fill_status import calc_fill_status
+
 
 __all__ = [
     'limit_description',
@@ -27,4 +29,5 @@ __all__ = [
     'save_scholarship',
     'parse_funding_type',
     'capitalize_name',
+    'calc_fill_status',
 ]

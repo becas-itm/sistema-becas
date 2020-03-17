@@ -14,7 +14,8 @@ from etl.tasks import read_raw_scholarhips, \
     parse_deadline, \
     save_scholarship, \
     parse_funding_type, \
-    capitalize_name
+    capitalize_name, \
+    calc_fill_status
 
 
 def get_graph(**options):
@@ -29,6 +30,7 @@ def get_graph(**options):
                     extract_country,
                     add_entity_full_name,
                     parse_funding_type,
+                    calc_fill_status,
                     save_scholarship)
     return graph
 
