@@ -23,18 +23,14 @@ class ItemBuilder:
         if 'sourceDetails' in self._item:
             self._item['sourceDetails']['id'] = original_id
         else:
-            self._item['sourceDetails'] = {
-                'id': original_id
-            }
+            self._item['sourceDetails'] = {'id': original_id}
         return self
 
     def add_url(self, url):
         if 'sourceDetails' in self._item:
             self._item['sourceDetails']['url'] = url
         else:
-            self._item['sourceDetails'] = {
-                'url': url
-            }
+            self._item['sourceDetails'] = {'url': url}
         return self
 
     def add_deadline(self, deadline):
