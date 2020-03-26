@@ -2,7 +2,7 @@ from .limit_description import limit_description
 
 from .add_timestamps import add_timestamps
 
-from .add_entity_full_name import add_entity_full_name
+from .add_entity_fields import add_entity_fields
 
 from .parse_deadline import parse_deadline
 
@@ -22,7 +22,7 @@ from .calc_fill_status import calc_fill_status
 __all__ = [
     'limit_description',
     'add_timestamps',
-    'add_entity_full_name',
+    'add_entity_fields',
     'parse_deadline',
     'add_pending_state',
     'read_raw_scholarhips',

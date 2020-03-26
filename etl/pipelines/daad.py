@@ -1,12 +1,13 @@
 import bonobo
 
-from scraper.spiders import SpiderName
 from itm.documents import connect_db
+
+from etl.common.entities import EntityName
 
 from etl.tasks import read_raw_scholarhips, \
     add_timestamps, \
     add_pending_state, \
-    add_entity_full_name, \
+    add_entity_fields, \
     limit_description, \
     save_scholarship, \
     capitalize_name, \
@@ -15,12 +16,12 @@ from etl.tasks import read_raw_scholarhips, \
 
 def get_graph(**options):
     graph = bonobo.Graph()
-    graph.add_chain(read_raw_scholarhips(SpiderName.DAAD),
+    graph.add_chain(read_raw_scholarhips(EntityName.DAAD),
                     add_timestamps,
                     add_pending_state,
                     capitalize_name,
                     limit_description,
-                    add_entity_full_name,
+                    add_entity_fields,
                     calc_fill_status,
                     save_scholarship)
     return graph

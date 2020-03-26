@@ -1,13 +1,13 @@
 import scrapy
 
 from etl.common import Language
-from scraper.item_builder import ItemBuilder
+from etl.common.entities import EntityName
 
-from . import SpiderName
+from scraper.item_builder import ItemBuilder
 
 
 class Icetex(scrapy.Spider):
-    name = SpiderName.ICETEX.value
+    name = EntityName.ICETEX.value
 
     allowed_domains = ['icetex.gov.co']
 

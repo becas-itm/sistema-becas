@@ -1,15 +1,16 @@
 import bonobo
 
-from scraper.spiders import SpiderName
-from etl.common.date_parser import ISO_FORMAT
 from itm.documents import connect_db
+
+from etl.common.entities import EntityName
+from etl.common.date_parser import ISO_FORMAT
 
 from etl.tasks.icetex import calculate_academic_level
 from etl.tasks.icetex.extract_country import extract_country
 from etl.tasks import read_raw_scholarhips, \
     add_timestamps, \
     add_pending_state, \
-    add_entity_full_name, \
+    add_entity_fields, \
     limit_description, \
     parse_deadline, \
     save_scholarship, \
@@ -20,7 +21,7 @@ from etl.tasks import read_raw_scholarhips, \
 
 def get_graph(**options):
     graph = bonobo.Graph()
-    graph.add_chain(read_raw_scholarhips(SpiderName.ICETEX),
+    graph.add_chain(read_raw_scholarhips(EntityName.ICETEX),
                     parse_deadline(ISO_FORMAT),
                     add_timestamps,
                     add_pending_state,
@@ -28,7 +29,7 @@ def get_graph(**options):
                     limit_description,
                     calculate_academic_level,
                     extract_country,
-                    add_entity_full_name,
+                    add_entity_fields,
                     parse_funding_type,
                     calc_fill_status,
                     save_scholarship)
