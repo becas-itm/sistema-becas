@@ -1,3 +1,5 @@
+import os
+
 # flake8: noqa
 # Scrapy settings for scraper project
 #
@@ -64,6 +66,7 @@ ROBOTSTXT_OBEY = True
 # Configure item pipelines
 # See https://docs.scrapy.org/en/latest/topics/item-pipeline.html
 ITEM_PIPELINES = {
+    'scraper.pipelines.DuplicateItemsPipeline': 90,
     'scraper.pipelines.RawPipeline': 100,
 }
 
@@ -87,3 +90,6 @@ ITEM_PIPELINES = {
 #HTTPCACHE_DIR = 'httpcache'
 #HTTPCACHE_IGNORE_HTTP_CODES = []
 #HTTPCACHE_STORAGE = 'scrapy.extensions.httpcache.FilesystemCacheStorage'
+
+CACHE_ITEMS_FILENAME = os.path.join(os.path.dirname(
+    os.path.abspath(__file__)), 'cache/scholarship_items.cache')
