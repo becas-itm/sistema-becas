@@ -1,7 +1,7 @@
 class SpiderCache:
-    def __init__(self, hasher, cache_by_spider={}):
+    def __init__(self, hasher, cache_by_spider=None):
         self.hasher = hasher
-        self.cache_by_spider = cache_by_spider
+        self.cache_by_spider = cache_by_spider or {}
 
     def add(self, spider, item_name):
         cache = self._get_cache(spider)

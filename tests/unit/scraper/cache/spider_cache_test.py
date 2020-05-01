@@ -25,3 +25,12 @@ def test_item_name_is_hashed():
     cache = SpiderCache(hasher)
     cache.add('_', 'foo')
     assert hasher.hash.called_with('foo')
+
+
+def test_initial_cache_should_not_be_shared(cache):
+    cache2 = SpiderCache(Sha1KeyHasher())
+    assert cache.cache_by_spider is not cache2.cache_by_spider
+
+
+def test_initial_cache_should_be_empty(cache):
+    assert cache.cache_by_spider == {}
