@@ -37,6 +37,10 @@ class ItemBuilder:
         self._item['deadline'] = deadline
         return self
 
+    def add_academic_level(self, academicLevel):
+        self._item['academicLevel'] = academicLevel
+        return self
+
     def add_funding_type(self, funding):
         self._item['fundingType'] = funding
         return self

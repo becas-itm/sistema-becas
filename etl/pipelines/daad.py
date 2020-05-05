@@ -13,6 +13,8 @@ from etl.tasks import read_raw_scholarhips, \
     capitalize_name, \
     calc_fill_status
 
+from etl.tasks.daad import calculate_academic_level
+
 
 def get_graph(**options):
     graph = bonobo.Graph()
@@ -22,6 +24,7 @@ def get_graph(**options):
                     capitalize_name,
                     limit_description,
                     add_entity_fields,
+                    calculate_academic_level,
                     calc_fill_status,
                     save_scholarship)
     return graph
