@@ -1,5 +1,4 @@
 import scrapy
-from scrapy.shell import inspect_response
 
 from etl.common import Language
 from etl.common.entities import EntityName
@@ -34,7 +33,9 @@ class Daad(scrapy.Spider):
         return ItemBuilder.from_spider(self) \
             .add_language(Language.ENGLISH) \
             .add_name(response.css('.scholarship-detail-header > h2::text').get()) \
-            .add_academic_level(self.prepare_academic_level(response.css('.scholarship-sidebar > div > dl > dd:nth-child(2)::text').extract()))\
+            .add_academic_level(self.prepare_academic_level(response.css(
+                '.scholarship-sidebar > div > dl > dd:nth-child(2)::text',
+            ).extract())) \
             .add_url(response.request.url) \
             .add_description(response.css('#overview > div::text').get()) \
             .build()
