@@ -32,7 +32,7 @@ def load_countries():
     global countries
     if countries is None:
         filename = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'countries.json')
-        with open(filename, 'r') as file:
+        with open(filename, encoding='utf8') as file:
             countries = json.loads(file.read())
 
     return countries

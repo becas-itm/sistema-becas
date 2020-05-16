@@ -21,4 +21,4 @@ class PickleCacheLoader:
             return {}
 
     def open_file(self, modes):
-        return open(self.filename, modes)
+        return open(self.filename, modes, encoding='utf8')
