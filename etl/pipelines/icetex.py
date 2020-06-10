@@ -5,7 +5,8 @@ from itm.documents import connect_db
 from etl.common.entities import EntityName
 from etl.common.date_parser import ISO_FORMAT
 
-from etl.tasks.icetex import calculate_academic_level
+from etl.tasks.icetex import calculate_academic_level, \
+    add_steps
 from etl.tasks.icetex.extract_country import extract_country
 from etl.tasks import read_raw_scholarhips, \
     add_timestamps, \
@@ -32,6 +33,7 @@ def get_graph(**options):
                     add_entity_fields,
                     parse_funding_type,
                     calc_fill_status,
+                    add_steps,
                     save_scholarship)
     return graph
 
