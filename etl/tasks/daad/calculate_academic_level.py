@@ -9,8 +9,6 @@ def calculate_academic_level(item: dict):
     if 'academicLevel' not in item:
         return item
 
-    print(111111111111,  get_academic_level(item['academicLevel'].lower()))
-
     item['academicLevel'] = get_academic_level(item['academicLevel'].lower())
 
     return item
